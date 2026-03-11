@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>NFT Кейсы</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app">
+        <!-- Шапка с балансом -->
+        <header class="header">
+            <div class="balance-header">
+                <span class="balance-amount" id="balance">0</span>
+                <span class="balance-star">⭐</span>
+            </div>
+            
+            <!-- Рейтинг под балансом -->
+            <div class="rating" onclick="goToRating()">
+                <span class="rating-icon">🏆</span>
+                <span class="rating-text">Рейтинг</span>
+            </div>
+        </header>
+
+        <!-- Основные игровые блоки -->
+        <main class="main">
+            <!-- Блок Бесплатно -->
+            <div class="game-card free-card" onclick="openDailyCase()">
+                <div class="card-gradient"></div>
+                <div class="card-content">
+                    <div class="card-left">
+                        <div class="card-icon">🎁</div>
+                    </div>
+                    <div class="card-center">
+                        <div class="card-title">Бесплатно</div>
+                        <div class="card-subtitle">1 кейс</div>
+                    </div>
+                    <div class="card-right">
+                        <div class="card-arrow">→</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Блок Рулетка -->
+            <div class="game-card roulette-card" onclick="openRoulette()">
+                <div class="card-gradient"></div>
+                <div class="card-content">
+                    <div class="card-left">
+                        <div class="card-icon">🎰</div>
+                    </div>
+                    <div class="card-center">
+                        <div class="card-title">Рулетка</div>
+                        <div class="card-subtitle">5 кейсов</div>
+                    </div>
+                    <div class="card-right">
+                        <div class="card-arrow">→</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Блок Краш -->
+            <div class="game-card crash-card" onclick="openCrash()">
+                <div class="card-gradient"></div>
+                <div class="card-content">
+                    <div class="card-left">
+                        <div class="card-icon">🚀</div>
+                    </div>
+                    <div class="card-center">
+                        <div class="card-title">Краш</div>
+                        <div class="card-subtitle">скоро</div>
+                    </div>
+                    <div class="card-right">
+                        <div class="card-arrow">→</div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Нижняя навигация -->
+        <nav class="bottom-nav">
+            <button class="nav-btn active" onclick="goToHome()">
+                <span class="nav-icon">📦</span>
+                <span class="nav-text">Кейсы</span>
+            </button>
+            <button class="nav-btn" onclick="goToTopUp()">
+                <span class="nav-icon">⭐</span>
+                <span class="nav-text">Баланс</span>
+            </button>
+            <button class="nav-btn" onclick="goToProfile()">
+                <span class="nav-icon">👤</span>
+                <span class="nav-text">Профиль</span>
+            </button>
+        </nav>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

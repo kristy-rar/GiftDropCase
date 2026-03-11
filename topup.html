@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Баланс | Пополнение</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app">
+        <!-- Шапка с балансом (как на главной) -->
+        <header class="header">
+            <button class="back-btn" onclick="goBack()">← Назад</button>
+            <div class="balance-header">
+                <span class="balance-amount" id="balance">0</span>
+                <span class="balance-star">⭐</span>
+            </div>
+        </header>
+
+        <!-- Основной контент -->
+        <main class="main">
+            <h1 class="section-title">Пополнить баланс</h1>
+            
+            <!-- Текущий баланс крупно -->
+            <div class="current-balance-card">
+                <div class="current-balance-label">Ваш баланс</div>
+                <div class="current-balance-value">
+                    <span id="currentBalance">0</span> ⭐
+                </div>
+            </div>
+
+            <!-- Пакеты для пополнения -->
+            <div class="packages-section">
+                <h2 class="packages-title">Выберите пакет</h2>
+                
+                <div class="packages-grid">
+                    <!-- Пакет 10 ⭐ (минимальный) -->
+                    <div class="package-card minimal" onclick="buyStars(10)">
+                        <div class="package-stars">10 ⭐</div>
+                        <div class="package-price">минимальный</div>
+                        <div class="package-bonus"></div>
+                        <button class="package-buy-btn">Купить</button>
+                        <div class="package-glow"></div>
+                    </div>
+
+                    <!-- Пакет 50 ⭐ -->
+                    <div class="package-card" onclick="buyStars(50)">
+                        <div class="package-stars">50 ⭐</div>
+                        <div class="package-price">базовый</div>
+                        <div class="package-bonus"></div>
+                        <button class="package-buy-btn">Купить</button>
+                        <div class="package-glow"></div>
+                    </div>
+
+                    <!-- Пакет 100 ⭐ -->
+                    <div class="package-card" onclick="buyStars(100)">
+                        <div class="package-stars">100 ⭐</div>
+                        <div class="package-price">популярный</div>
+                        <div class="package-bonus"></div>
+                        <button class="package-buy-btn">Купить</button>
+                        <div class="package-glow"></div>
+                    </div>
+
+                    <!-- Пакет 250 ⭐ -->
+                    <div class="package-card" onclick="buyStars(250)">
+                        <div class="package-stars">250 ⭐</div>
+                        <div class="package-price">⭐</div>
+                        <div class="package-bonus">+10 бонус</div>
+                        <button class="package-buy-btn">Купить</button>
+                        <div class="package-glow"></div>
+                    </div>
+
+                    <!-- Пакет 500 ⭐ (с бонусом) -->
+                    <div class="package-card popular" onclick="buyStars(500)">
+                        <div class="popular-badge">🔥 Хит</div>
+                        <div class="package-stars">500 ⭐</div>
+                        <div class="package-price">⭐</div>
+                        <div class="package-bonus">+25 бонус</div>
+                        <button class="package-buy-btn">Купить</button>
+                        <div class="package-glow"></div>
+                    </div>
+
+                    <!-- Пакет 1000 ⭐ (с бонусом) -->
+                    <div class="package-card vip" onclick="buyStars(1000)">
+                        <div class="package-stars">1000 ⭐</div>
+                        <div class="package-price">VIP</div>
+                        <div class="package-bonus">+75 бонус</div>
+                        <button class="package-buy-btn">Купить</button>
+                        <div class="package-glow"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Информация о платежах -->
+            <div class="payment-info-card">
+                <div class="payment-info-icon">ℹ️</div>
+                <div class="payment-info-text">
+                    <strong>Безопасная оплата</strong> через Telegram Stars. Средства зачисляются моментально.
+                </div>
+            </div>
+
+            <!-- История пополнений -->
+            <div class="history-section">
+                <h2 class="history-title">История пополнений</h2>
+                <div id="purchaseHistory" class="history-list">
+                    <!-- Сюда будут добавляться покупки через JS -->
+                </div>
+            </div>
+        </main>
+
+        <!-- Нижняя навигация -->
+        <nav class="bottom-nav">
+            <button class="nav-btn" onclick="goToHome()">
+                <span class="nav-icon">📦</span>
+                <span class="nav-text">Кейсы</span>
+            </button>
+            <button class="nav-btn active" onclick="goToTopUp()">
+                <span class="nav-icon">⭐</span>
+                <span class="nav-text">Баланс</span>
+            </button>
+            <button class="nav-btn" onclick="goToProfile()">
+                <span class="nav-icon">👤</span>
+                <span class="nav-text">Профиль</span>
+            </button>
+        </nav>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Загружаем историю покупок при загрузке страницы
+        document.addEventListener('DOMContentLoaded', function() {
+            loadPurchaseHistory();
+            updateCurrentBalance();
+        });
+
+        // Обновляем отображение текущего баланса
+        function updateCurrentBalance() {
+            const balanceEl = document.getElementById('currentBalance');
+            if (balanceEl) {
+                balanceEl.textContent = userBalance || 0;
+            }
+        }
+
+        // Загружаем историю покупок
+        function loadPurchaseHistory() {
+            const historyList = document.getElementById('purchaseHistory');
+            if (!historyList) return;
+            
+            const history = JSON.parse(localStorage.getItem('purchase_history') || '[]');
+            
+            if (history.length === 0) {
+                historyList.innerHTML = '<div class="empty-history">Пополнений пока нет</div>';
+                return;
+            }
+            
+            historyList.innerHTML = '';
+            history.slice(0, 5).forEach(purchase => {
+                const date = new Date(purchase.date);
+                const formattedDate = `${date.toLocaleDateString()} ${date.toLocaleTimeString().slice(0,5)}`;
+                
+                const item = document.createElement('div');
+                item.className = 'history-item';
+                item.innerHTML = `
+                    <span class="history-item-date">${formattedDate}</span>
+                    <span class="history-item-amount">+${purchase.total} ⭐</span>
+                `;
+                historyList.appendChild(item);
+            });
+        }
+
+        // Переопределяем функцию покупки
+        window.buyStars = function(amount) {
+            if (window.Telegram?.WebApp) {
+                window.Telegram.WebApp.showConfirm(
+                    `Купить ${amount} ⭐?`,
+                    (confirmed) => {
+                        if (confirmed) {
+                            // Здесь будет реальная покупка через Telegram
+                            // Пока симуляция
+                            setTimeout(() => {
+                                completePurchase(amount);
+                            }, 1000);
+                        }
+                    }
+                );
+            } else {
+                completePurchase(amount);
+            }
+        };
+    </script>
+</body>
+</html>

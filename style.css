@@ -1,0 +1,621 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background-color: #121212;
+    color: #ffffff;
+    min-height: 100vh;
+}
+
+.app {
+    max-width: 600px;
+    margin: 0 auto;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    background-color: #121212;
+    padding: 0 16px;
+}
+
+/* Шапка с балансом */
+.header {
+    padding: 20px 0 10px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.balance-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 5px;
+    margin-bottom: 10px;
+}
+
+.balance-amount {
+    font-size: 72px;
+    font-weight: 800;
+    color: #ffffff;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+    line-height: 1;
+}
+
+.balance-star {
+    font-size: 48px;
+    color: #ff9f00;
+    text-shadow: 0 0 20px rgba(255, 159, 0, 0.5);
+    line-height: 1;
+}
+
+/* Рейтинг */
+.rating {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 8px 20px;
+    border-radius: 30px;
+    backdrop-filter: blur(5px);
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.rating:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.rating-icon {
+    font-size: 20px;
+}
+
+.rating-text {
+    font-size: 16px;
+    color: #ffffff;
+    font-weight: 500;
+}
+
+/* Основной контент */
+.main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin: 20px 0;
+}
+
+/* Карточки игр */
+.game-card {
+    border-radius: 24px;
+    padding: 2px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.game-card:hover {
+    transform: translateY(-2px);
+}
+
+.card-gradient {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 24px;
+    z-index: 0;
+}
+
+.card-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(5px);
+    border-radius: 24px;
+    height: 100%;
+}
+
+/* Бесплатный кейс */
+.free-card .card-gradient {
+    background: linear-gradient(135deg, #ff4d6d, #9d4edd);
+}
+
+/* Рулетка */
+.roulette-card .card-gradient {
+    background: linear-gradient(135deg, #4361ee, #7209b7);
+}
+
+/* Краш */
+.crash-card .card-gradient {
+    background: linear-gradient(135deg, #f72585, #b5179e);
+}
+
+.card-left {
+    width: 60px;
+    display: flex;
+    justify-content: center;
+}
+
+.card-icon {
+    font-size: 36px;
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+}
+
+.card-center {
+    flex: 1;
+}
+
+.card-title {
+    font-size: 28px;
+    font-weight: 800;
+    color: #ffffff;
+    margin-bottom: 4px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.card-subtitle {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 400;
+}
+
+.card-right {
+    width: 40px;
+}
+
+.card-arrow {
+    font-size: 24px;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* Нижняя навигация */
+.bottom-nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 12px 0;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin: 0 -16px;
+    position: sticky;
+    bottom: 0;
+}
+
+.nav-btn {
+    background: none;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+    padding: 8px 16px;
+    border-radius: 12px;
+    transition: background 0.2s;
+}
+
+.nav-btn:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.nav-btn.active .nav-icon {
+    color: #3b82f6;
+}
+
+.nav-btn.active .nav-text {
+    color: #3b82f6;
+}
+
+.nav-icon {
+    font-size: 24px;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.nav-text {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: 500;
+}
+
+/* Адаптация для маленьких экранов */
+@media (max-width: 380px) {
+    .balance-amount {
+        font-size: 56px;
+    }
+    
+    .balance-star {
+        font-size: 36px;
+    }
+    
+    .card-title {
+        font-size: 24px;
+    }
+    
+    .card-icon {
+        font-size: 28px;
+    }
+}
+/* Анимация переливания для иконок */
+@keyframes iconGlow {
+    0% {
+        filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.5));
+        transform: scale(1);
+    }
+    50% {
+        filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.9));
+        transform: scale(1.1);
+    }
+    100% {
+        filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.5));
+        transform: scale(1);
+    }
+}
+
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Переливающиеся иконки в карточках */
+.game-card:hover .card-icon {
+    animation: iconGlow 2s ease-in-out infinite;
+}
+
+.card-icon {
+    transition: all 0.3s ease;
+}
+
+/* Переливающийся градиент для фона карточек */
+.free-card .card-gradient {
+    background: linear-gradient(135deg, #ff4d6d, #9d4edd, #ff4d6d);
+    background-size: 200% 200%;
+    animation: gradientShift 4s ease infinite;
+}
+
+.roulette-card .card-gradient {
+    background: linear-gradient(135deg, #4361ee, #7209b7, #4361ee);
+    background-size: 200% 200%;
+    animation: gradientShift 4s ease infinite;
+}
+
+.crash-card .card-gradient {
+    background: linear-gradient(135deg, #f72585, #b5179e, #f72585);
+    background-size: 200% 200%;
+    animation: gradientShift 4s ease infinite;
+}
+
+/* Переливание для иконки звезды */
+@keyframes starGlow {
+    0% {
+        color: #ff9f00;
+        text-shadow: 0 0 10px rgba(255, 159, 0, 0.3);
+    }
+    50% {
+        color: #ffd966;
+        text-shadow: 0 0 25px rgba(255, 159, 0, 0.8);
+    }
+    100% {
+        color: #ff9f00;
+        text-shadow: 0 0 10px rgba(255, 159, 0, 0.3);
+    }
+}
+
+.balance-star {
+    animation: starGlow 3s ease-in-out infinite;
+    display: inline-block;
+}
+
+/* Переливание для иконок в нижнем меню при наведении */
+.nav-btn:hover .nav-icon {
+    animation: iconGlow 1.5s ease-in-out infinite;
+}
+
+/* Переливание для активной иконки в меню */
+.nav-btn.active .nav-icon {
+    color: #3b82f6;
+    filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.5));
+    animation: iconGlow 2s ease-in-out infinite;
+}
+/* ============================================
+   СТРАНИЦА БАЛАНСА (TOPUP)
+   ============================================ */
+
+/* Кнопка назад */
+.back-btn {
+    background: none;
+    border: none;
+    color: #ffffff;
+    font-size: 18px;
+    padding: 10px;
+    cursor: pointer;
+    position: absolute;
+    left: 16px;
+    top: 20px;
+    opacity: 0.8;
+    transition: opacity 0.2s;
+}
+
+.back-btn:hover {
+    opacity: 1;
+}
+
+/* Карточка текущего баланса */
+.current-balance-card {
+    background: linear-gradient(135deg, #2d2d2d, #1a1a1a);
+    border-radius: 24px;
+    padding: 30px 20px;
+    margin: 20px 0;
+    text-align: center;
+    border: 1px solid #404040;
+    position: relative;
+    overflow: hidden;
+}
+
+.current-balance-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+    animation: rotate 10s linear infinite;
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.current-balance-label {
+    font-size: 16px;
+    color: #a0a0a0;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.current-balance-value {
+    font-size: 48px;
+    font-weight: 800;
+    color: #ffffff;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+}
+
+/* Секция пакетов */
+.packages-section {
+    margin: 30px 0;
+}
+
+.packages-title {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #ffffff;
+}
+
+.packages-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 12px;
+}
+
+/* Карточка пакета */
+.package-card {
+    background: #2d2d2d;
+    border-radius: 20px;
+    padding: 20px 12px;
+    text-align: center;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: 1px solid #404040;
+}
+
+.package-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.package-card.minimal {
+    border: 2px solid #10b981;
+    background: linear-gradient(145deg, #2d2d2d, #1e2d2a);
+}
+
+.package-card.popular {
+    border: 2px solid #3b82f6;
+    background: linear-gradient(145deg, #2d2d2d, #1a2635);
+}
+
+.package-card.vip {
+    border: 2px solid #f59e0b;
+    background: linear-gradient(145deg, #2d2d2d, #2a241a);
+}
+
+.popular-badge {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: #3b82f6;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.package-stars {
+    font-size: 28px;
+    font-weight: 800;
+    color: #ffffff;
+    margin-bottom: 8px;
+}
+
+.package-price {
+    font-size: 12px;
+    color: #a0a0a0;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.package-bonus {
+    font-size: 12px;
+    color: #10b981;
+    margin-bottom: 15px;
+    min-height: 18px;
+}
+
+.package-buy-btn {
+    background: #3b82f6;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 30px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+    transition: background 0.2s;
+}
+
+.package-card.minimal .package-buy-btn {
+    background: #10b981;
+}
+
+.package-card.vip .package-buy-btn {
+    background: #f59e0b;
+}
+
+.package-buy-btn:hover {
+    filter: brightness(1.1);
+}
+
+.package-glow {
+    position: absolute;
+    top: -20px;
+    left: -20px;
+    width: 100px;
+    height: 100px;
+    background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
+    animation: glowMove 5s ease-in-out infinite;
+}
+
+@keyframes glowMove {
+    0% { transform: translate(0, 0); }
+    25% { transform: translate(50px, 20px); }
+    50% { transform: translate(20px, 50px); }
+    75% { transform: translate(-20px, 30px); }
+    100% { transform: translate(0, 0); }
+}
+
+/* Информация об оплате */
+.payment-info-card {
+    background: rgba(59, 130, 246, 0.1);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    border-radius: 16px;
+    padding: 16px;
+    margin: 30px 0;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.payment-info-icon {
+    font-size: 24px;
+}
+
+.payment-info-text {
+    flex: 1;
+    color: #a0a0a0;
+    line-height: 1.5;
+}
+
+.payment-info-text strong {
+    color: #3b82f6;
+}
+
+/* История пополнений */
+.history-section {
+    margin: 30px 0 20px;
+}
+
+.history-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #ffffff;
+}
+
+.history-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.history-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    background: #2d2d2d;
+    border-radius: 12px;
+    border: 1px solid #404040;
+    transition: background 0.2s;
+}
+
+.history-item:hover {
+    background: #333333;
+}
+
+.history-item-date {
+    color: #a0a0a0;
+    font-size: 14px;
+}
+
+.history-item-amount {
+    color: #3b82f6;
+    font-weight: 600;
+}
+
+.empty-history {
+    text-align: center;
+    padding: 30px;
+    color: #a0a0a0;
+    background: #2d2d2d;
+    border-radius: 12px;
+    border: 1px dashed #404040;
+}
+
+/* Адаптация для маленьких экранов */
+@media (max-width: 380px) {
+    .current-balance-value {
+        font-size: 36px;
+    }
+    
+    .package-stars {
+        font-size: 24px;
+    }
+    
+    .packages-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
